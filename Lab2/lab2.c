@@ -118,7 +118,7 @@ int main()
       
       
       if (packet.keycode[0] == 0x2c) { /* space pressed? */
-		
+		//why tho
 
 		for (col = 0 ; col < 64 ; col++) {
     	//fbputchar('*', 0, col);
@@ -129,7 +129,7 @@ int main()
 
       }
       
-      if (packet.keycode[0]) { /* Trying to princt a char */
+      if (packet.keycode[0]) { /* Trying to print a char */
       	if ((packet.keycode[0] > 0x1d )& (packet.keycode[0] < 0x28) )
       	
       	{
@@ -139,7 +139,7 @@ int main()
       		if (packet.keycode[0] == 0x27){
       			c = '0';
       		}
-      		
+      		//this prints number 0 
       		stringSend[m] = packet.keycode[0];
       		m = m +1;
       		
@@ -150,7 +150,9 @@ int main()
 			col1 = 1;
       	}
       	}
-      	else{
+      	//else{
+	else if{
+		//this has to be limited to the normal characters
       		char c  = packet.keycode[0] + 93;
       		
 			fbputchar(c,row1, col1);
@@ -160,8 +162,12 @@ int main()
 			col1 = 1;
 			}
 			
-			}
-			
+	    }
+	      //im adding this
+	 else{
+	 ///this part should be for shifts or whatever
+	 }
+		
       }
       
       //MOVING THE CURSOR 
@@ -189,11 +195,12 @@ int main()
       	// IF ENTER 
       	if (packet.keycode[0] == 0x28){
       	fbputchar('S',row1, col1);
-      	
+      	//
       	//stringSend[m] = '\0';
       	printf("%s",stringSend);
       	
-      	sendRes = send(sockfd,"trg2128", strlen("trg2128"),0);
+      //	sendRes = send(sockfd,"trg2128", strlen("trg2128"),0);
+	sendRes = send(sockfd, /*here should go the pointer to the stringSend head */, )
       	m =0;
       	if (sendRes < 0){
       	printf("Error");
@@ -224,6 +231,11 @@ void *network_thread_f(void *ignored)
   char recvBuf[BUFFER_SIZE];
   int n;
   /* Receive data */
+	//we need to count the length here
+	int stringlength = 0;
+	//this needs to increment with each character we receive, i dont th
+	///ink we need it now, but itss good for formatting
+	//since we need to break the screen at some point
   
   while ( (n = read(sockfd, &recvBuf, BUFFER_SIZE - 1)) > 0 ) {
     recvBuf[n] = '\0';
